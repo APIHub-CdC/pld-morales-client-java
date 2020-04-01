@@ -109,7 +109,8 @@ keytool -list -keystore ${KEYSTORE_FILE} \
     
 ### Paso 4. Modificar archivo de configuraciones
 
-Para hacer uso del certificado que se descargó y el keystore que se creó se deberán modificar las rutas que se encuentran e
+Para hacer uso del certificado que se descargó y el keystore que se creó se deberán modificar las rutas que se encuentran en:
+
 ```properties
 keystore_file=your_path_for_your_keystore/keystore.jks
 cdc_cert_file=your_path_for_certificate_of_cdc/cdc_cert.pem
