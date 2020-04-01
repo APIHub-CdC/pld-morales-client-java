@@ -17,7 +17,8 @@ mvn install -Dmaven.test.skip=true
 ### Paso 1. Generar llave y certificado
 
 Antes de lanzar la prueba se deberá tener un keystore para la llave privada y el certificado asociado a ésta.
-Para generar el keystore se ejecutan las instrucciones que se encuentran e
+Para generar el keystore se ejecutan las instrucciones que se encuentran en
+
 ```shell
 export KEY_PASSWORD=your_super_secure_password
 ``
