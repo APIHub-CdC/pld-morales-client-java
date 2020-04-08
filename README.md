@@ -1,6 +1,5 @@
-# Reporte de Prevención de Lavado de Dinero para personas morales
-
-Es una solución de filtrado contra listas públicas de cumplimiento para Prevención de Lavado de Dinero y Financiamiento al Terrorismo (PLD/FT).
+# pld-morales-client-java
+Es una solución de filtrado de personas morales contra listas públicas de cumplimiento para Prevención de Lavado de Dinero y Financiamiento al Terrorismo (PLD/FT).
 
 ## Requisitos
 
