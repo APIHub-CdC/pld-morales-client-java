@@ -14,17 +14,23 @@ mvn install -Dmaven.test.skip=true
 ## Guía de inicio
 
 ### Paso 1. Generar llave y certificado
-
 Antes de lanzar la prueba se deberá tener un keystore para la llave privada y el certificado asociado a ésta.
-Para generar el keystore se ejecutan las instrucciones que se encuentran en
+Para generar el keystore se ejecutan las instrucciones que se encuentran en ***src/main/security/createKeystore.sh*** ó con los siguientes comandos:
+
+**Opcional**: Si desea cifrar su contenedor, coloque una contraseña en una variable de ambiente.
 
 ```shell
 export KEY_PASSWORD=your_super_secure_password
-``
+```
+
+**Opcional**: Si desea cifrar su keystore, coloque una contraseña en una variable de ambiente.
+
 ```shell
 export KEYSTORE_PASSWORD=your_super_secure_keystore_password
 ```
+
 - Definición de los nombres de archivos y alias.
+
 ```shell
 export PRIVATE_KEY_FILE=pri_key.pem
 export CERTIFICATE_FILE=certificate.pem
@@ -34,16 +40,21 @@ export KEYSTORE_FILE=keystore.jks
 export ALIAS=cdc
 ```
 - Generar llave y certificado.
+
 ```shell
 # Genera la llave privada.
 openssl ecparam -name secp384r1 -genkey -out ${PRIVATE_KEY_FILE}
+
 # Genera el certificado público
 openssl req -new -x509 -days 365 \
   -key ${PRIVATE_KEY_FILE} \
   -out ${CERTIFICATE_FILE} \
   -subj "${SUBJECT}"
+
 ```
+
 - Generar contenedor PKCS12 a partir de la llave privada y el certificado
+
 ```shell
 # Genera el archivo pkcs12 a partir de la llave privada y el certificado.
 # Deberá empaquetar su llave privada y el certificado.
@@ -53,8 +64,11 @@ openssl pkcs12 -name ${ALIAS} \
   -inkey ${PRIVATE_KEY_FILE} \
   -in ${CERTIFICATE_FILE} \
   -password pass:${KEY_PASSWORD}
+
 ```
-- Generar un keystore dummy y eiminar su contenido.
+
+- Generar un keystore dummy y eliminar su contenido.
+
 ```sh
 #Genera un Keystore con un par de llaves dummy.
 keytool -genkey -alias dummy -keyalg RSA \
@@ -66,7 +80,9 @@ keytool -delete -alias dummy \
     -keystore ${KEYSTORE_FILE} \
     -storepass ${KEYSTORE_PASSWORD}
 ```
+
 - Importar el contenedor PKCS12 al keystore
+
 ```sh
 #Importamos el contenedor PKCS12
 keytool -importkeystore -srckeystore ${PKCS12_FILE} \
@@ -79,6 +95,7 @@ keytool -importkeystore -srckeystore ${PKCS12_FILE} \
 keytool -list -keystore ${KEYSTORE_FILE} \
   -storepass ${KEYSTORE_PASSWORD}
 ```
+
 ### Paso 2. Carga del certificado dentro del portal de desarrolladores
 
  1. Iniciar sesión.
